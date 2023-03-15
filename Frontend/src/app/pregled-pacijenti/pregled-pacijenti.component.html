@@ -1,0 +1,41 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+  <section class="content-header" style="text-align: center; background-color: #007bff; border-radius: 10px; margin: 7.5px;">
+    <h1 style="color: white; margin: 0;">Pregled pacijenata</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="card card-primary collapsed-card" style="width: 100%; margin-left: 10px; margin-right: 10px">
+        <div class="card-header" style="background-color: #1fb4b9">
+          <h3 class="card-title">Lista pacijenata</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-sm">
+            <tbody>
+            <tr *ngFor="let pac of Pacijenti; let indexOfRow=index;" style="float: left; padding: 1%; width: 100%; margin-top: 1%; border-bottom: #d4dbd2 1px solid">
+              <div class="card card-primary collapsed-card">
+                <div class="card-header">
+                  <h3 class="card-title" style="margin: 0;">{{pac.ime}} - {{pac.prezime}}</h3>
+                  <div class="card-tools">
+                    <button class="btn-info" style="float: right;" (click)="visePodatakaOPacijentu(pac.id)">Više podataka</button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body" style="display: none; padding: 0.75rem;">
+                  <div class="content">
+                    <textarea disabled rows="4" style="border: 1px grey solid; width: 100%; max-height: 100px; overflow-y: scroll;">{{pac.jmbg}}</textarea>
+                  </div>
+                </div>
+              </div>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

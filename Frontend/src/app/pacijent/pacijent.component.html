@@ -1,0 +1,177 @@
+<div class="content-wrapper" style="min-height: 2080.4px;">
+  <section class="content-header" style="text-align: center; background-color: #007bff; border-radius: 10px; margin: 7.5px;">
+    <h1 style="color: white; margin: 0;">{{pacijent?.ime}} {{pacijent?.prezime}}</h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="card-body" style="padding: 0.75rem;">
+        <div class="content">
+          <div class="card card-primary" style=" border-radius: 20px;">
+            <div class="card-header"  style=" border-radius: 20px!important;">
+              <h3 class="card-title" style="margin: 0;">Podaci o pacijentu</h3>
+            </div>
+
+            <div class="card-body"  style=" border-radius: 20px;">
+              <strong><i class="fas fa-pencil-alt mr-1"></i>Puno ime i prezime</strong>
+              <p class="text-muted">
+                Ime: {{pacijent?.ime}}
+                <br>
+                Prezime: {{pacijent?.prezime}}
+              </p>
+              <hr>
+              <strong><i class="fa fa-exclamation" aria-hidden="true" style="margin-right: 0.25rem;"></i>JMBG</strong>
+              <p class="text-muted">
+                {{pacijent?.jmbg}}
+              </p>
+              <hr>
+              <strong><i class="fa fa-calendar" aria-hidden="true" style="margin-right: 0.25rem;"></i>Datum rođenja</strong>
+              <p class="text-muted">
+                {{pacijent?.datumRodjenja}}
+              </p>
+              <hr>
+              <strong><i class="far fa-file-alt mr-1"></i>Kontakt podaci</strong>
+              <p class="text-muted">
+                Telefon: {{pacijent?.telefon}}
+                <br>
+                E-mail: {{pacijent?.mail}}
+              </p>
+              <hr>
+              <strong><i class="fa fa-medkit" aria-hidden="true" style="margin-right: 0.25rem;"></i>Adresa stanovanja</strong>
+              <p class="text-muted">
+                {{pacijent?.lokacija?.adresa}}
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="prethodniTermini.length > 0" class="card card-primary collapsed-card" style="width: 100%; margin-left: 10px; margin-right: 10px">
+        <div class="card-header" style="background-color: #1fb4b9">
+          <h3 class="card-title">Lista prethodnih termina</h3>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-sm" id="tabelaprethodniTermini">
+            <tbody>
+            <tr *ngFor="let pregled of prethodniTermini; let indexOfRow=index;" style="float: left; padding: 1%; width: 100%; margin-top: 1%; border-bottom: #d4dbd2 1px solid">
+              <div class="card card-primary collapsed-card">
+                <div class="card-header">
+                  <h3 class="card-title" style="margin: 0;">Pregled {{pregled.datum}} {{pregled.vrijeme}}</h3>
+                  <input type="text" hidden style="width: 100%" value="termin.naziv">
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body" style="display: none; padding: 0.75rem;">
+                  <div class="content">
+                    <div class="card card-primary" style=" border-radius: 20px;">
+                      <div class="card-header"  style=" border-radius: 20px!important;">
+                        <h3 class="card-title" style="margin: 0;">Stavke pregleda</h3>
+                      </div>
+
+                      <div class="card-body"  style=" border-radius: 20px;">
+                        <strong><i class="fa fa-calendar" aria-hidden="true" style="margin-right: 0.25rem;"></i>Datum i vrijeme pregleda</strong>
+                        <p class="text-muted">
+                          Ovaj pregled obavljen je na datum {{pregled.datum}} u {{pregled.vrijeme}} časova.
+                        </p>
+                        <hr>
+                        <strong><i class="fa fa-exclamation" aria-hidden="true" style="margin-right: 0.25rem;"></i>Vaša napomena</strong>
+                        <p class="text-muted">Prilikom slanja zahtjeva za termin, doktoru ste poslali sljedeću napomenu: {{pregled.napomena}}</p>
+                        <hr>
+                        <strong><i class="fas fa-pencil-alt mr-1"></i>Odgovor doktora</strong>
+                        <p class="text-muted">Prilikom odobravanja termina doktor je dodao sljedeći odgovor: {{pregled.odgovor}}</p>
+                        <hr>
+                        <strong><i class="far fa-file-alt mr-1"></i>Ustanovljena dijagnoza tokom pregleda</strong>
+                        <p class="text-muted">Tokom pregleda doktor je ustanovio sljedeću dijagnozu: {{pregled.dijagnoza}}</p>
+                        <hr>
+                        <strong><i class="fa fa-medkit" aria-hidden="true" style="margin-right: 0.25rem;"></i>Propisana terapija</strong>
+                        <p class="text-muted">Doktor je odredio sljedeću terapiju: {{pregled.terapija}}</p>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card card-primary collapsed-card" style="width: 100%; margin-left: 10px; margin-right: 10px">
+        <div class="card-header" style="background-color: #1fb4b9">
+          <h3 class="card-title">Lista zabilježenih oboljenja</h3>
+          <div class="card-tools">
+            <button class="btn-success" style="float: right;" (click)="otvoriDodajOboljenje()">Dodaj oboljenje</button>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-sm">
+            <tbody>
+            <tr *ngFor="let bol of bolestiPacijenta; let indexOfRow=index;" style="float: left; padding: 1%; width: 100%; margin-top: 1%; border-bottom: #d4dbd2 1px solid">
+              <div class="card card-primary collapsed-card">
+                <div class="card-header">
+                  <h3 class="card-title" style="margin: 0;">{{bol.naziv}} - {{bol.icdKod}}</h3>
+                  <div class="card-tools">
+                    <button class="btn-danger" style="float: right;" (click)="ukloniOboljenje(bol.id)">Ukloni oboljenje</button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body" style="display: none; padding: 0.75rem;">
+                  <div class="content">
+                      <textarea disabled rows="4" style="border: 1px grey solid; width: 100%; max-height: 100px; overflow-y: scroll;">{{bol.opis}}</textarea>
+                  </div>
+                </div>
+              </div>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card card-primary collapsed-card" style="width: 100%; margin-left: 10px; margin-right: 10px">
+        <div class="card-header" style="background-color: #1fb4b9">
+          <h3 class="card-title">Lista neobavljenih tretmana</h3>
+          <div class="card-tools">
+            <button class="btn-success" style="float: right;" (click)="otvoriDodajTretman()">Dodaj tretman</button>
+            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-sm">
+            <tbody>
+            <tr *ngFor="let tret of nadolazeciTretmani; let indexOfRow=index;" style="float: left; padding: 1%; width: 100%; margin-top: 1%; border-bottom: #d4dbd2 1px solid">
+              <div class="card card-primary collapsed-card">
+                <div class="card-header">
+                  <h3 class="card-title" style="margin: 0;">{{tret.opis}} - {{tret.datumIVrijemePropisa}}</h3>
+                  <div class="card-tools">
+                    <button class="btn-danger" style="float: right;" (click)="ukloniTretman(tret.id)">Ukloni tretman</button>
+                    <button class="btn-success" style="float: right;" (click)="obaviTretman(tret.id)">Obavi tretman</button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-plus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body" style="display: none; padding: 0.75rem;">
+                  <div class="content">
+                    <textarea disabled rows="4" style="border: 1px grey solid; width: 100%; max-height: 100px; overflow-y: scroll;">{{tret.napomena}}</textarea>
+                  </div>
+                </div>
+              </div>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
