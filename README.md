@@ -1,2 +1,2 @@
 # eAmbulanta
-Software for a local health clinic.
+Software for a local health clinic
